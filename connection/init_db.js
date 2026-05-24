@@ -5,7 +5,8 @@ const setDatabase = `CREATE DATABASE IF NOT EXISTS todo_list;`
 async function initDatabase() {
     const connection = await mysql.createConnection({
         host: process.env.DB_HOST,
-        port: process.env.DB_HOST_PORT,
+        // Uncomment the line below if you need to configure the port
+        // port: process.env.DB_HOST_PORT,
         user: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
         
