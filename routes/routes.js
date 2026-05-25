@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/home', (req, res) => {
-    res.render('home')
-})
+router.use(require('./auth'))
+router.use('/home', require('./todos'))
+router.use('/api', require('./api/api'))
 
-router.get('/', (req,res) => {
+router.get('/', (req, res) => {
     res.redirect('/home')
 })
 

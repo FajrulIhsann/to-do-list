@@ -1,11 +1,13 @@
 require('dotenv').config()
+
 const express = require('express')
 const app = express()
+const port = process.env.APP_PORT
 const routes = require('./routes/routes')
-const port = 3030
+
 const db = require('./connection/database')
-const session = require('express-session')
 const initDatabase = require('./connection/init_db')
+const sessionMiddleware = require('./config/session')
 
 async function startServer(){
     await initDatabase()
@@ -13,13 +15,9 @@ async function startServer(){
     app.use(express.static('public'));
     app.use(express.urlencoded({ extended: true }))
     app.use(express.json())
+    app.use(sessionMiddleware)
 
-    app.use(session({
-    secret: 'kirana-secret-key',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { httpOnly: true }
-}   ))
+    
     
     app.use('/', routes)
     
