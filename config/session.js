@@ -15,7 +15,7 @@ const sessionMiddleware = session({
     secret: process.env.SESSION_SECRET,
     store: sessionStore,
     resave: false,
-    saveUnintialized: false,
+    saveUninitialized: false,
     cookie: {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,

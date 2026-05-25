@@ -1,9 +1,23 @@
 function apiRequireAuth(req, res, next){
     if(!req.session.user){
-        res.status(401).json({error: 'Anda perlu login!'})
+        return res.status(401).json({error: 'Anda perlu login!'})
     }
     next()
 }
 
+function guestOnly(req, res, next){
+    if(req.session.user){
+        return res.redirect('/home')
+    }
 
-module.exports = {apiRequireAuth}
+    next()
+}
+
+function authOnly(req, res, next){
+    if(!req.session.user){
+        return res.redirect('/login')
+    }
+    next()
+}
+
+module.exports = {apiRequireAuth, guestOnly, authOnly}

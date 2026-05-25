@@ -5,17 +5,7 @@ router.get('/', (req, res) => {
     res.json({status:'success'})
 })
 
-router.get('/list', (req, res) => {
-    res.json({
-        MESSAGE: "OPO AE",
-        list: {
-            name: 'fajrul',
-            age: 17
-        },
-        status: 'success'
-    })
-})
-
+router.use('/auth', require('./auth'))
 
 
 module.exports = router

@@ -9,34 +9,59 @@ async function createAccount(req, res) {
     const hashedPassword = await authService.hashPassword(password)
 
     const sql = `INSERT INTO akun (nama, password) VALUES (?, ?)`
-    db.query(sql, [username, hashedPassword], (err, result) =>{
-        if(err) throw err
-        res.redirect('/')
-    })
-}
-
-function login(req, res){
-    const {username, password} = req.body
     
-    const sql = `SELECT * FROM akun WHERE nama=?`
-    db.query(sql, [username], async (err, result)=>{
-        const akun = result[0]
-
-        if(!akun){
-            return alert('Akun Tidak Ditemukan!')
+    try{
+       await db.query(sql, [username, hashedPassword])
+        console.log(req.session.user)
+        res.redirect('/login')
+    }catch (err){
+        if(err.code === 'ER_DUP_ENTRY'){
+            return res.json({error: 'username sudah digunakan!'})
         }
+    }
+}
 
-        const isMatch = await authService.comparePassword(password, akun.password)
+async function login(req, res){
+    const {username, password} = req.body
+    const sql = `SELECT * FROM akun WHERE nama= ?`
+    const [result] = await db.query(sql, [username])
+    
+    const akun = result[0]
+    if(!akun){
+        console.log('akun tidak ditemukan')
+        return res.redirect('/login')
+    }
 
-        if(!isMatch){
-            return alert('Nama atau Password salah!')
-        }
+    const isMatch = await authService.comparePassword(password, akun.password)
+    
+    if(!isMatch){
+        console.log('password atau akun salah')
+        return res.redirect('/login')
+    }
 
-        req.session.user = {
-            id: akun.id,
-            username: username
-        }
+    req.session.user = {
+        id: akun.id,
+        username: akun.nama
+    }
 
-        res.redirect('/dashboard')
+    await req.session.save()
+    res.redirect('/home')
+
+}
+
+function logout(req, res){
+    req.session.destroy(() => {
+        res.clearCookie('connect.sid')
+        res.redirect('/login')
     })
 }
+
+function show(req, res){
+    const sql = `SELECT * FROM akun`
+    db.query(sql, (err, result) => {
+        const hasil = result
+        console.log(hasil)
+    })
+}
+
+module.exports = { createAccount, login, show, logout }
