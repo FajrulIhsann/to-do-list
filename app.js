@@ -4,6 +4,7 @@ const app = express()
 const routes = require('./routes/routes')
 const port = 3030
 const db = require('./connection/database')
+const session = require('express-session')
 const initDatabase = require('./connection/init_db')
 
 async function startServer(){
@@ -12,6 +13,13 @@ async function startServer(){
     app.use(express.static('public'));
     app.use(express.urlencoded({ extended: true }))
     app.use(express.json())
+
+    app.use(session({
+    secret: 'kirana-secret-key',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { httpOnly: true }
+}   ))
     
     app.use('/', routes)
     
