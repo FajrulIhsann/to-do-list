@@ -22,28 +22,36 @@ async function createAccount(req, res) {
 }
 
 async function login(req, res){
-    const {username, password} = req.body
-    const sql = `SELECT * FROM akun WHERE nama= ?`
-    const [result] = await db.query(sql, [username])
+    try{
+        const {username, password} = req.body
+        const sql = `SELECT * FROM akun WHERE nama= ?`
+        const [result] = await db.query(sql, [username])
+        
+        const akun = result[0]
+        if(!akun){
+            return res.status(401).render('login-page', {errorMessage: 'Akun tidak ditemukan.'})
+        }
     
-    const akun = result[0]
-    if(!akun){
-        return res.status(401).render('login-page', {errorMessage: 'Akun tidak ditemukan.'})
-    }
-
-    const isMatch = await authService.comparePassword(password, akun.password)
+        const isMatch = await authService.comparePassword(password, akun.password)
+        
+        if(!isMatch){
+            return res.status(401).render('login-page', {errorMessage: 'Nama atau password salah'})
+        }
     
-    if(!isMatch){
-        return res.status(401).render('login-page', {errorMessage: 'Nama atau password salah'})
-    }
+        req.session.user = {
+            id: akun.id,
+            username: akun.nama
+        }
+    
+        req.session.save((err) => {
+            if(err) return res.status(500).render('login', {errorMessage: 'Terjadi kesalahan saat login'})
+            res.redirect('/app')
 
-    req.session.user = {
-        id: akun.id,
-        username: akun.nama
+        })
+    }catch(err){
+        console.log(err)
+        return res.status(500).render('login-page', {errorMessage: 'Terjadi kesalahan pada server, coba lagi'})
     }
-
-    await req.session.save()
-    res.redirect('/app')
 
 }
 
