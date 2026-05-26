@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Modern To Do List</title>
+    <title>Register - Modern To Do List</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <!-- Background Gelap Elegan -->
@@ -19,11 +19,11 @@
         <!-- Sisi Kanan: Form Login -->
         <div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center relative">
             <div class="mb-8">
-                <h3 class="text-2xl font-bold text-white mb-2">Login</h3>
-                <p class="text-gray-400 text-sm">Masuk ke akunmu untuk melanjutkan</p>
+                <h3 class="text-2xl font-bold text-white mb-2">Register</h3>
+                <p class="text-gray-400 text-sm">Daftar terlebih dahulu untuk melanjutkan</p>
             </div>
 
-            <form action="/api/auth/register" method="POST" class="space-y-6">
+            <form action="/register" method="POST" class="space-y-6">
                 <!-- Email Input -->
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Username</label>
@@ -39,6 +39,8 @@
                         class="w-full px-5 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:bg-white/10 transition-all duration-300" 
                         placeholder="••••••••" required>
                 </div>
+
+                <p class="text-red-500"><%= errorMessage %></p>
 
                 <!-- Remember Me & Forgot Password -->
                 <!-- <div class="flex items-center justify-between">

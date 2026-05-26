@@ -7,7 +7,7 @@ function apiRequireAuth(req, res, next){
 
 function guestOnly(req, res, next){
     if(req.session.user){
-        return res.redirect('/home')
+        return res.redirect('/app')
     }
 
     next()

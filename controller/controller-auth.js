@@ -16,7 +16,7 @@ async function createAccount(req, res) {
         res.redirect('/login')
     }catch (err){
         if(err.code === 'ER_DUP_ENTRY'){
-            return res.json({error: 'username sudah digunakan!'})
+            return res.render('register-page', {errorMessage:'Username sudah digunakan!'})
         }
     }
 }
@@ -28,15 +28,13 @@ async function login(req, res){
     
     const akun = result[0]
     if(!akun){
-        console.log('akun tidak ditemukan')
-        return res.redirect('/login')
+        return res.status(401).render('login-page', {errorMessage: 'Akun tidak ditemukan.'})
     }
 
     const isMatch = await authService.comparePassword(password, akun.password)
     
     if(!isMatch){
-        console.log('password atau akun salah')
-        return res.redirect('/login')
+        return res.status(401).render('login-page', {errorMessage: 'Nama atau password salah'})
     }
 
     req.session.user = {
@@ -45,7 +43,7 @@ async function login(req, res){
     }
 
     await req.session.save()
-    res.redirect('/home')
+    res.redirect('/app')
 
 }
 

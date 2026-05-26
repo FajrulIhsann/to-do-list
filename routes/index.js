@@ -2,11 +2,11 @@ const express = require('express')
 const router = express.Router()
 
 router.use(require('./auth'))
-router.use('/home', require('./todos'))
+router.use('/app', require('./todos'))
 router.use('/api', require('./api'))
 
 router.get('/', (req, res) => {
-    res.redirect('/home')
+    res.redirect('/app')
 })
 
 
