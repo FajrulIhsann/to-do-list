@@ -15,8 +15,16 @@ const todosController = {
         const userId = req.session.user.id
         const {task} = req.body
         const result = await todosModel.create(userId, task) 
-        res.status(201).json({status: 'success'})
-        console.table(result)
+        return res.status(201).json({status: 'success'})
+        
+    },
+
+    deleteTask : async (req, res) => {
+        const taskId = req.params.taskId
+        
+        const result = await todosModel.delete(taskId) 
+        return res.status(201).json({payload : result , status:'deleted'})
+        
     }
 }
 

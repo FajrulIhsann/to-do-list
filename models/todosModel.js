@@ -10,7 +10,13 @@ const todosModel = {
     create : async (userId, task) => {
         const sql = `INSERT INTO tasks (user_id, task) VALUES (?, ?)`
         const [result] = await db.query(sql, [userId, task])
-        return result.id
+        return result.insertId
+    },
+
+    delete: async (taskId) => {
+        const sql = `DELETE FROM tasks WHERE id = ?`
+        await db.query(sql, [taskId])
+        return {taskId:taskId}
     }
 
 }

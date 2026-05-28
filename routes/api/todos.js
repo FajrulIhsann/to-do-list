@@ -6,6 +6,6 @@ router.use('/',middlewares.apiRequireAuth)
 
 router.get('/', todosController.getTasks)
 router.post('/', todosController.createTask)
-
+router.delete('/:taskId', todosController.deleteTask)
 
 module.exports = router

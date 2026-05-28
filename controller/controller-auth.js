@@ -58,7 +58,7 @@ async function login(req, res){
 function logout(req, res){
     req.session.destroy(() => {
         res.clearCookie('connect.sid')
-        res.redirect('/login')
+        return res.redirect('/login')
     })
 }
 
