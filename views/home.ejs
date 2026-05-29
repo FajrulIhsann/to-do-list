@@ -1,85 +1,54 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Clean To Do List</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-50 min-h-screen font-sans p-4 md:p-8">
 
     <div class="max-w-5xl mx-auto">
-        
+
         <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
             <div>
                 <h1 class="text-3xl font-bold text-gray-900">My Workspace</h1>
                 <p class="text-gray-500 text-sm mt-1">Kelola dan selesaikan prioritasmu hari ini.</p>
             </div>
             <div class="flex gap-3">
-                <button class="px-5 py-2.5 bg-white hover:bg-gray-50 border border-gray-200 rounded-xl text-gray-700 text-sm font-medium transition-colors shadow-sm">
+                <button
+                    class="px-5 py-2.5 bg-white hover:bg-gray-50 border border-gray-200 rounded-xl text-gray-700 text-sm font-medium transition-colors shadow-sm">
                     Filter Tugas
                 </button>
-                <button onclick="logout()" class="px-5 py-2.5 bg-white hover:bg-red-50 border border-gray-200 rounded-xl text-red-600 text-sm font-medium transition-colors flex items-center gap-2 shadow-sm">
+                <button onclick="logout()"
+                    class="px-5 py-2.5 bg-white hover:bg-red-50 border border-gray-200 rounded-xl text-red-600 text-sm font-medium transition-colors flex items-center gap-2 shadow-sm">
                     <span>Logout</span>
                 </button>
             </div>
         </header>
 
-        <form id="form-todo" class="flex flex-col md:flex-row gap-3 mb-10 bg-white p-2.5 rounded-2xl border border-gray-200 shadow-sm">
+        <form id="form-todo"
+            class="flex flex-col md:flex-row gap-3 mb-10 bg-white p-2.5 rounded-2xl border border-gray-200 shadow-sm">
             <input type="text" name="task" id="input-task"
-                class="flex-1 px-4 py-3 bg-transparent text-gray-800 placeholder-gray-400 focus:outline-none text-base" 
+                class="flex-1 px-4 py-3 bg-transparent text-gray-800 placeholder-gray-400 focus:outline-none text-base"
                 placeholder="Apa yang ingin kamu kerjakan hari ini?" required>
-            <button type="submit" 
-                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-xl shadow-sm shadow-blue-600/30 transition-colors">
+            <button type="submit"
+                class="active:scale-100 transition-all hover:scale-95 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-xl shadow-sm shadow-blue-600/30 transition-colors">
                 Tambah Task
             </button>
         </form>
 
         <div id="card-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-            
-            
 
-            <!-- <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 transition-all duration-200 group flex flex-col justify-between h-full">
-                <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="px-2.5 py-1 bg-gray-200 text-gray-500 text-xs font-semibold rounded-md border border-gray-200">#102</span>
-                        <button class="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                        </button>
-                    </div>
-                    <p class="text-gray-400 font-medium text-lg leading-relaxed line-through mb-4">Desain UI halaman Login dengan warna dasar putih dan aksen biru.</p>
-                </div>
-                
-                <div class="flex items-center justify-between pt-4 border-t border-gray-200 mt-auto">
-                    <p class="text-xs text-gray-400 font-medium">25 Mei 2026</p>
-                    <button class="w-6 h-6 rounded bg-blue-600 border-2 border-blue-600 flex items-center justify-center">
-                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                    </button>
-                </div>
-            </div>
-
-            <div class="bg-white border border-gray-200 hover:border-blue-400 rounded-2xl p-6 transition-all duration-200 group flex flex-col justify-between h-full shadow-sm hover:shadow-md">
-                <div>
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="px-2.5 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded-md border border-blue-100">#103</span>
-                        <button class="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                        </button>
-                    </div>
-                    <p class="text-gray-800 font-medium text-lg leading-relaxed mb-4">Menyiapkan koneksi database MySQL dan membuat tabel 'tasks' dengan kolom is_completed.</p>
-                </div>
-        iddlewares.apiRequireAuth,         
-                <div class="flex items-center justify-between pt-4 border-t border-gray-100 mt-auto">
-                    <p class="text-xs text-gray-400 font-medium">26 Mei 2026</p>
-                    <button class="w-6 h-6 rounded border-2 border-gray-300 flex items-center justify-center hover:border-blue-500 hover:bg-blue-50 transition-colors"></button>
-                </div>
-            </div> -->
 
         </div>
+
     </div>
 
     <script>
-        async function getTodos(){
+        async function getTodos() {
             const cardContainer = document.getElementById('card-container')
             const result = await fetch('/api/todos')
             const todos = await result.json()
@@ -94,22 +63,33 @@
 
             const userTasks = todos.payload
             cardContainer.innerHTML = userTasks.map((tasks, index) => `
-            <div class="bg-white border border-gray-200 hover:border-blue-400 rounded-2xl p-6 transition-all duration-200 group flex flex-col justify-between h-full shadow-sm hover:shadow-md">
+            <div data-id="${tasks.id}" class="${tasks.is_completed ? 'bg-gray-50 border-gray-200' : 'bg-white hover:border-blue-400 shadow-sm hover:shadow-md'}  border rounded-2xl p-6 transition-all duration-200 group flex flex-col justify-between h-full ">
                 <div>
                     <div class="flex justify-between items-start mb-4">
                         <span class="px-2.5 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded-md border border-blue-100">${index + 1}</span>
-                        <button onclick="deleteTaskHandler(${tasks.id}, ${tasks.is_completed})" class="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        <button onclick="deleteTaskHandler(${tasks.id}, ${tasks.is_completed})" class="hover:scale-110 transition-all text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <svg class="pointer-events-none w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                         </button>
                     </div>
-                    <p class="text-gray-800 font-medium text-lg leading-relaxed mb-4">${tasks.task}</p>
+                    <p class="font-medium text-lg leading-relaxed mb-4 ${tasks.is_completed ? 'text-gray-400 line-through' : 'text-gray-800'}">${tasks.task}</p>
+          
                 </div>
                 
                 <div class="flex items-center justify-between pt-4 border-t border-gray-100 mt-auto">
                     <p class="text-xs text-gray-400 font-medium">${formatter.format(new Date(tasks.created_at))}</p>
-                    <button class="w-6 h-6 rounded border-2 border-gray-300 flex items-center justify-center hover:border-blue-500 hover:bg-blue-50 transition-colors"></button>
+                    <button ${tasks.is_completed ? `onclick="toggleTask(${tasks.id}, false)"` : `onclick="toggleTask(${tasks.id}, true)"`} class="hover:scale-110 w-6 h-6 rounded border-2  flex items-center justify-center ${tasks.is_completed ? 'border-blue-600 bg-blue-600' : 'border-gray-300 hover:border-blue-500 hover:bg-blue-50 transition-colors'}">
+                        ${tasks.is_completed
+                    ? `<svg class="pointer-events-none w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                            </svg>`
+                    : ''
+                }        
+                        
+                    </button>
+
                 </div>
             </div>
+            
             `).join('')
         }
 
@@ -122,48 +102,130 @@
             e.preventDefault()
             const task = inputTask.value.trim()
 
-            if(!task) return
+            if (!task) return
 
             try {
 
                 const res = await fetch('/api/todos', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({task: task})
+                    body: JSON.stringify({ task: task })
                 })
-    
+
                 inputTask.value = ""
                 getTodos()
-            }catch (err){
+            } catch (err) {
                 console.error("error: ", err)
             }
 
         })
 
-        async function logout(){
-            await fetch('/api/logout', {
+        async function logout() {
+            playDeleteSound()
+            const yakin = confirm('apakah anda yakin ingin logout?')
+            if(!yakin) return
+            await fetch('/logout', {
                 method: 'POST',
             })
+            window.location.href = '/login'
         }
 
-        function deleteTaskHandler(taskId, isCompleted){
+        function deleteTaskHandler(taskId, isCompleted) {
             console.log(isCompleted)
-            if(!isCompleted){
+            if (!isCompleted) {
                 const yakin = confirm("Tugas belum selesai. Yakin ingin Hapus?")
-                if(!yakin) return
+                if (!yakin) return
             }
 
 
             execDeleteTask(taskId)
         }
 
-        async function execDeleteTask(taskId){
+        async function execDeleteTask(taskId) {
+            playDeleteSound()
             const res = await fetch(`/api/todos/${taskId}`, {
                 method: 'DELETE'
             })
             getTodos()
         }
+
+        async function toggleTask(taskId, request) {
+            const card = document.querySelector(`[data-id="${taskId}"]`)
+            card.classList.add('opacity-50', 'scale-90', 'transition-all', 'duration-200')
+
+            await new Promise(resolve => setTimeout(resolve, 200))
+            if (request) {
+                playCheckSound()
+            } else {
+                playUncheckSound()
+            }
+
+            await fetch(`/api/todos/${taskId}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 'taskId': taskId, 'is_completed': request })
+            })
+
+            getTodos()
+        }
+
+        function playCheckSound() {
+            const ctx = new AudioContext()
+            const oscillator = ctx.createOscillator()
+            const gainNode = ctx.createGain()
+
+            oscillator.connect(gainNode)
+            gainNode.connect(ctx.destination)
+
+            oscillator.frequency.setValueAtTime(600, ctx.currentTime)
+            oscillator.frequency.setValueAtTime(900, ctx.currentTime + 0.1)
+
+            gainNode.gain.setValueAtTime(0.3, ctx.currentTime)
+            gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3)
+
+            oscillator.start(ctx.currentTime)
+            oscillator.stop(ctx.currentTime + 0.3)
+        }
+
+        function playUncheckSound() {
+            const ctx = new AudioContext()
+            const oscillator = ctx.createOscillator()
+            const gainNode = ctx.createGain()
+
+            oscillator.connect(gainNode)
+            gainNode.connect(ctx.destination)
+
+            oscillator.type = 'sine'
+            oscillator.frequency.setValueAtTime(500, ctx.currentTime)
+            oscillator.frequency.linearRampToValueAtTime(300, ctx.currentTime + 0.3)
+
+            gainNode.gain.setValueAtTime(0.2, ctx.currentTime)
+            gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3)
+
+            oscillator.start(ctx.currentTime)
+            oscillator.stop(ctx.currentTime + 0.3)
+        }
+
+        function playDeleteSound() {
+            const ctx = new AudioContext()
+            const oscillator = ctx.createOscillator()
+            const gainNode = ctx.createGain()
+
+            oscillator.connect(gainNode)
+            gainNode.connect(ctx.destination)
+
+            oscillator.type = 'sine'
+            oscillator.frequency.setValueAtTime(150, ctx.currentTime)
+            oscillator.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.2)
+
+            gainNode.gain.setValueAtTime(0.5, ctx.currentTime)
+            gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2)
+
+            oscillator.start(ctx.currentTime)
+            oscillator.stop(ctx.currentTime + 0.2)
+        }
     </script>
 
 </body>
-</html>   
+
+</html>

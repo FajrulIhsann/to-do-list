@@ -25,6 +25,14 @@ const todosController = {
         const result = await todosModel.delete(taskId) 
         return res.status(201).json({payload : result , status:'deleted'})
         
+    },
+
+    doneTask : async (req, res) => {
+        const taskId = req.params.taskId
+        const {is_completed} = req.body
+        const {status} = await todosModel.done(taskId, is_completed)
+        
+        return res.status(201).json({taskId: taskId, status: 'done!'})
     }
 }
 

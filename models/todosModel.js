@@ -17,6 +17,19 @@ const todosModel = {
         const sql = `DELETE FROM tasks WHERE id = ?`
         await db.query(sql, [taskId])
         return {taskId:taskId}
+    },
+
+    done: async (taskId, request) => {
+        const sql = `UPDATE tasks SET is_completed = ? WHERE id = ?`
+        if(request){
+            await db.query(sql, [1, taskId])
+            return {status: 'success'}
+        }else if(!request){
+            await db.query(sql, [0, taskId])
+            return {status: 'success'}
+        }
+
+        return {status: 'error'}
     }
 
 }
