@@ -9,6 +9,8 @@ const db = require('./connection/database')
 const initDatabase = require('./connection/init_db')
 const sessionMiddleware = require('./config/session')
 
+const errorRoutes = require('./routes/errorHandler')
+
 async function startServer(){
     await initDatabase()
     app.set('view engine', 'ejs')
@@ -20,6 +22,7 @@ async function startServer(){
     
     
     app.use('/', routes)
+    app.use(errorRoutes)
     
     app.listen(port, () => {
         console.log('App sudah aktif di localhost:', port)

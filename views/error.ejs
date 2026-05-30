@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error <%= errorCode %> - <%= errorType %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Menggunakan font Fira Code untuk kesan terminal yang rapi */
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
+        .font-mono { font-family: 'Fira Code', monospace; }
+    </style>
+</head>
+<body class="bg-[#1e1e2e] text-[#cdd6f4] font-mono min-h-screen flex flex-col items-center justify-center p-6 selection:bg-[#cba6f7] selection:text-[#1e1e2e]">
+    
+    <div class="border border-[#cba6f7]/50 p-8 md:p-10 max-w-2xl w-full shadow-[0_0_30px_rgba(203,166,247,0.1)] relative overflow-hidden rounded-xl bg-[#181825]/90 backdrop-blur-md">
+        
+        <div class="relative z-10">
+            <div class="flex items-center gap-2 mb-8 border-b border-[#313244] pb-4">
+                <span class="ml-2 text-sm text-[#a6adc8]">dawn-shell ~ error </span>
+            </div>
+
+            <h1 class="text-5xl md:text-7xl font-bold mb-3 text-[#f38ba8]">
+                ERR_<%= errorCode %>
+            </h1>
+            
+            <h2 class="text-2xl md:text-3xl mb-6 text-[#89b4fa] uppercase">
+                <%= errorType %>
+            </h2>
+            
+            <p class="text-lg md:text-xl mb-10 text-[#bac2de]">
+                <%= errorMessage %><span class="animate-pulse text-[#cba6f7]">_</span>
+            </p>
+
+            <a href="/app" class="inline-block bg-[#cba6f7]/10 border border-[#cba6f7] text-[#cba6f7] px-6 py-3 hover:bg-[#cba6f7] hover:text-[#1e1e2e] hover:shadow-[0_0_20px_rgba(203,166,247,0.4)] transition-all duration-300 rounded-lg font-bold">
+                home ~/
+            </a>
+        </div>
+    </div>
+</body>
+</html>

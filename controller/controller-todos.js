@@ -1,4 +1,5 @@
 const todosModel = require('../models/todosModel')
+const errorHandler = require('../service/errorHandler')
 
 const todosController = {
     getTasks : async (req, res) => {
@@ -7,7 +8,7 @@ const todosController = {
             const result = await todosModel.get(user.id)
             return res.json({payload: result, status: 'success'})
         }catch(err){
-            return res.status(500).json({payload : null,error: err})
+            return errorHandler.internalServerError
         }
     },
 
